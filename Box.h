@@ -49,6 +49,8 @@ public:
     {
         return height_;
     }
+    friend std::ostream &operator <<(std::ostream & stream,const Box &box);
+    friend std::istream &operator >>(std::istream & stream, Box &box);
 private:
     double length_{1};
     double height_{1};
@@ -65,10 +67,14 @@ inline bool operator<(const Box abox,double value)
 }
 std::ostream &operator <<(std::ostream & stream,const Box &box)
 {
-    stream << "Box(" << std::setw(2) << box.GetLength() << ','
-           << std::setw(2) << box.GetWidth() << ','
-           << std::setw(2) << box.GetHeight() << ')';
+    stream << "Box(" << std::setw(2) << box.length_ << ','
+           << std::setw(2) << box.height_ << ','
+           << std::setw(2) << box.width_<< ')';
     return stream;
+}
+std::istream &operator >>(std::istream & stream, Box &box)
+{
+    
 }
 
 #endif //TRUNK_BOX_H

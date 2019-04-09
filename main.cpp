@@ -28,8 +28,8 @@ void  TestClassPackage()
     SharedBox pbox3 {new Box(3,3,3)};
     Package *phead = new Package{pbox1};
     Package *pPackage2 = new Package{pbox2};
-    Package *pPackage3= new Package{pbox3};
     phead->SetNext(pPackage2);
+    Package *pPackage3= new Package{pbox3};
     pPackage2->SetNext(pPackage3);
     phead->ListPackage();
     phead->GetNext()->ListPackage();
