@@ -7,6 +7,7 @@
 #include"Box.h"
 #include<stdexcept>
 #include<string>
+#include<utility>
 class Array
 {
 private:
@@ -17,7 +18,7 @@ public:
     Array(const Array &array); // 复制构造函数
     ~Array();
     //Array& operator=(Array array);
-    //Box &operator[](size_t index);
+    Box &operator[](size_t index);
     const Box &operator[](size_t index) const;
     size_t  GetSize()const {return size_;}
    // void swap(Array &other) noexcept ;
@@ -37,6 +38,7 @@ const Box& Array::operator[](size_t index) const {
         throw std::out_of_range {"index out od range,"+std::to_string(index)+"not  small than"+std::to_string(size_)};
     return element_[index];
 }
-
-
+Box& Array::operator[](size_t index) {
+    return const_cast<Box&>(std::as_const(*this)[index]);
+}
 #endif //TRUNK_INS_ARRAY_H

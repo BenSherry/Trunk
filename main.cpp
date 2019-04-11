@@ -85,5 +85,7 @@ void TestClassBox2()
 }
 void TestInsv1()
 {
-
+    Array array{2};
+    Box box1{1,2,3};
+    Box box2{2,3,4};
 }
