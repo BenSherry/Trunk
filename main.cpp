@@ -1,15 +1,17 @@
 #include <iostream>
 #include <memory>
 #include"TrunkLoad.h"
+#include"Ins_Array.h"
 void  TestClassPackage();
 void TestClassBox();
 void TestTrunkv1();
 void TestTrunkv2();
 void TestClassBox2();
+void TestInsv1();
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
-    TestClassBox2();
+    TestInsv1();
     return 0;
 }
 void TestClassBox()
@@ -80,4 +82,8 @@ void TestClassBox2()
    std::cout << res<<std::endl;
    res = *pbox2<36;
    std::cout<<"show box"<<*pbox1<<std::endl;
+}
+void TestInsv1()
+{
+
 }
