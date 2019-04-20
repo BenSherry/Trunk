@@ -39,6 +39,7 @@ const Box& Array::operator[](size_t index) const {
     return element_[index];
 }
 Box& Array::operator[](size_t index) {
-    return const_cast<Box&>(std::as_const(*this)[index]);
+   // return const_cast<Box&>(std::as_const(*this)[index]);
+    return const_cast<Box&>(static_cast<const Array&>(*this)[index]);
 }
 #endif //TRUNK_INS_ARRAY_H

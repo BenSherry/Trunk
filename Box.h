@@ -9,12 +9,17 @@
 class Box
 {
 public:
-    Box()= default;
+   // Box()= default;
+   Box()
+   {
+       std::cout<<"From base"<<std::endl;
+   }
     Box(double lv,double hv,double wv):length_{lv},height_{hv},width_{wv}{}
     double volume () const
     {
         return length_*height_*width_;
     }
+    Box(Box &box):length_{box.length_},width_{box.width_},height_{box.height_}{}
     void listBox() const
     {
         std::cout<<"Box("<<std::setw(2)<<length_<<','

@@ -2,16 +2,22 @@
 #include <memory>
 #include"TrunkLoad.h"
 #include"Ins_Array.h"
+#include"Carton.h"
 void  TestClassPackage();
 void TestClassBox();
 void TestTrunkv1();
 void TestTrunkv2();
 void TestClassBox2();
 void TestInsv1();
+void TestCarton();
+void SplitLine()
+{
+    std::cout<<"-------------------------"<<std::endl;
+}
 
 int main() {
+    TestCarton();
     std::cout << "Hello, World!" << std::endl;
-    TestInsv1();
     return 0;
 }
 void TestClassBox()
@@ -88,4 +94,19 @@ void TestInsv1()
     Array array{2};
     Box box1{1,2,3};
     Box box2{2,3,4};
+}
+void TestCarton()
+{
+    Carton carton{"Iron"};
+    carton.listBox();
+    std::cout<<carton.Getmaterial()<<std::endl;
+    Carton carton1{1,2,3,"Golden"};
+    carton1.listBox();
+    SplitLine();
+    Box source{11,22,33};
+    Box source2{source};
+    source2.listBox();
+    SplitLine();
+    Carton carton2{carton1};
+    carton2.ShowCarton();
 }
