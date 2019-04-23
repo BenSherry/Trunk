@@ -3,6 +3,7 @@
 #include"TrunkLoad.h"
 #include"Ins_Array.h"
 #include"Carton.h"
+#include<algorithm>
 void  TestClassPackage();
 void TestClassBox();
 void TestTrunkv1();
@@ -20,9 +21,11 @@ void ReferenceWay(Box &box)
 {
     box.ShowVolume();
 }
+void TestAsFun();
 int main() {
     //Testpolymorphism();
-    UseSmartptr();
+    TestAsFun();
+   // UseSmartptr();
     return 0;
 }
 void TestClassBox()
@@ -151,5 +154,34 @@ void UseSmartptr()
 // 2.vector如果直接测试存储Box 以及子类的对象，之后直接调用虚函数，会发生对象的分片(不会发生多态)
 // 3.注意vector 使用make_unique 使用了不同的模板类型
 // 4.析构函数和构造函数里调用的虚函数只会调用析构函数或者构造函数所在类的那个虚函数(不会发生多态).
+}
+
+void TestAsFun()
+{
+    Box box{1,2,3,4};
+    Box box89(box);
+    std::cout<<"*************************"<<std::endl;
+    std::vector<Box> boxes;
+    SplitLine();
+    boxes.push_back(Box(1,2,3,4)); // 直接push_back一个object会调用拷贝构造函数
+    boxes.push_back(Box(2,3,4,5));
+    boxes.push_back(Box(3,4,5,6));
+    SplitLine();
+    for(auto &it:boxes)
+    {
+        std::cout<<it<<std::endl;
+    }
+    int m =5;
+    auto it = std::find_if(boxes.begin(),boxes.end(),Is_SameBox(6));
+    /*auto it = std::find_if(boxes.begin(),boxes.end(),[m](Box box){
+        std::cout<<"Hello"<<std::endl;
+        return box.GetId() == m;
+    });*/
+
+    SplitLine();
+    it->listBox();
+
+    Box box9(*it);
+    box9.listBox();
 
 }

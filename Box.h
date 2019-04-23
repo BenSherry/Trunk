@@ -10,12 +10,16 @@ class Box
 {
 public:
     Box()= default;
-    Box(double lv,double hv,double wv):length_{lv},height_{hv},width_{wv}{}
+    explicit Box(double lv,double hv,double wv,int id = 0):length_{lv},height_{hv},width_{wv},id_{id}{
+        std::cout<<"From construct"<<std::endl;
+    }
     virtual double volume () const
     {
         return length_*height_*width_;
     }
-    Box(Box &box):length_{box.length_},width_{box.width_},height_{box.height_}{}
+    explicit Box(Box  const &box):length_{box.length_},width_{box.width_},height_{box.height_},id_{box.id_}{
+        std::cout<<"From copy"<<std::endl;
+    }
     virtual void listBox() const
     {
         std::cout<<"Box("<<std::setw(2)<<length_<<','
@@ -58,25 +62,27 @@ public:
     {
         std::cout<<"volume is:"<<volume()<<std::endl;
     }
+    int GetId()
+    {
+        return id_;
+    }
     friend std::ostream &operator <<(std::ostream & stream,const Box &box);
     friend std::istream &operator >>(std::istream & stream, Box &box);
-    virtual ~Box()
-    {
-        std::cout<<"From base deconstruct"<<std::endl;
-    }
+    virtual ~Box() = default;
 private:
     double length_{1};
     double height_{1};
     double width_{1};
+    int id_{-1};
 };
 inline bool operator<(double value, const Box& aBox)
 {
     std::cout<<"from 2 binary function"<<std::endl;
     return value < aBox.GetSurface();
 }
-inline bool operator<(const Box abox,double value)
+inline bool operator<(const Box& aBox,double value)
 {
-    return abox.GetSurface()<value;
+    return aBox.GetSurface()<value;
 }
 std::ostream &operator <<(std::ostream & stream,const Box &box)
 {
@@ -89,5 +95,15 @@ std::istream &operator >>(std::istream & stream, Box &box)
 {
     
 }
-
+struct Is_SameBox
+{
+private:
+    int id_;
+public:
+    Is_SameBox(int id):id_{id}{}
+    bool operator()(Box & box)
+    {
+        return box.GetId()==id_;
+    }
+};
 #endif //TRUNK_BOX_H
