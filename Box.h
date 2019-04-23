@@ -105,5 +105,9 @@ public:
     {
         return box.GetId()==id_;
     }
+    bool operator()(Box *box)
+    {
+        return box->GetId() == id_;
+    }
 };
 #endif //TRUNK_BOX_H
