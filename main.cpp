@@ -10,14 +10,19 @@ void TestTrunkv2();
 void TestClassBox2();
 void TestInsv1();
 void TestCarton();
+void Testpolymorphism();
+void UseSmartptr();
 void SplitLine()
 {
     std::cout<<"-------------------------"<<std::endl;
 }
-
+void ReferenceWay(Box &box)
+{
+    box.ShowVolume();
+}
 int main() {
-    TestCarton();
-    std::cout << "Hello, World!" << std::endl;
+    //Testpolymorphism();
+    UseSmartptr();
     return 0;
 }
 void TestClassBox()
@@ -108,5 +113,43 @@ void TestCarton()
     source2.listBox();
     SplitLine();
     Carton carton2{carton1};
-    carton2.ShowCarton();
+    //carton2.ShowCarton();
+    carton2.listBox();
+    SplitLine();
+    carton2.Box::listBox();
+}
+void Testpolymorphism()
+{
+    Carton carton1{1,2,3,"Golden"};
+    Box box{1,2,3};
+    Box *pbox{&box};
+    pbox->ShowVolume();
+
+    pbox=&carton1;
+    pbox->ShowVolume();
+    //pbox->add(2,3);
+    SplitLine();
+    //ReferenceWay(box);
+    //ReferenceWay(carton1);
+
+}
+void UseSmartptr()
+{
+    std::vector<std::unique_ptr<Box>> pboxes;
+    Carton carton1{1,2,3,"Golden"};
+    Box box1{3,2,3};
+    pboxes.push_back(std::make_unique<Carton>(carton1));
+    pboxes.push_back(std::make_unique<Box>(box1));
+    for(auto &p:pboxes)
+    {
+        p->listBox();
+        p->ShowVolume();
+        SplitLine();
+    }
+// backlog：
+// 1.父类中的非虚函数A调用虚函数B，也可以发生多态，例如本例中通过Box的ShowVolume 调用虚函数volume()
+// 2.vector如果直接测试存储Box 以及子类的对象，之后直接调用虚函数，会发生对象的分片(不会发生多态)
+// 3.注意vector 使用make_unique 使用了不同的模板类型
+// 4.析构函数和构造函数里调用的虚函数只会调用析构函数或者构造函数所在类的那个虚函数(不会发生多态).
+
 }

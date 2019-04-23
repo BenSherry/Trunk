@@ -9,18 +9,14 @@
 class Box
 {
 public:
-   // Box()= default;
-   Box()
-   {
-       std::cout<<"From base"<<std::endl;
-   }
+    Box()= default;
     Box(double lv,double hv,double wv):length_{lv},height_{hv},width_{wv}{}
-    double volume () const
+    virtual double volume () const
     {
         return length_*height_*width_;
     }
     Box(Box &box):length_{box.length_},width_{box.width_},height_{box.height_}{}
-    void listBox() const
+    virtual void listBox() const
     {
         std::cout<<"Box("<<std::setw(2)<<length_<<','
                          <<std::setw(2)<<height_<<','
@@ -42,6 +38,10 @@ public:
     {
         return 2*(length_*width_+length_*height_+width_*height_);
     }
+    virtual int add(int m,int n)
+    {
+        return m*n;
+    }
     double GetLength() const
     {
         return length_;
@@ -54,8 +54,16 @@ public:
     {
         return height_;
     }
+    void ShowVolume()
+    {
+        std::cout<<"volume is:"<<volume()<<std::endl;
+    }
     friend std::ostream &operator <<(std::ostream & stream,const Box &box);
     friend std::istream &operator >>(std::istream & stream, Box &box);
+    virtual ~Box()
+    {
+        std::cout<<"From base deconstruct"<<std::endl;
+    }
 private:
     double length_{1};
     double height_{1};
