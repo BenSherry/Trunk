@@ -158,30 +158,47 @@ void UseSmartptr()
 
 void TestAsFun()
 {
-    Box box{1,2,3,4};
-    Box box89(box);
-    std::cout<<"*************************"<<std::endl;
     std::vector<Box> boxes;
-    SplitLine();
     boxes.push_back(Box(1,2,3,4)); // 直接push_back一个object会调用拷贝构造函数
     boxes.push_back(Box(2,3,4,5));
     boxes.push_back(Box(3,4,5,6));
-    SplitLine();
-    for(auto &it:boxes)
-    {
-        std::cout<<it<<std::endl;
-    }
-    int m =5;
+
     auto it = std::find_if(boxes.begin(),boxes.end(),Is_SameBox(6));
-    /*auto it = std::find_if(boxes.begin(),boxes.end(),[m](Box box){
+
+    /*auto it = std::find_if(boxes.begin(),boxes.end(),baseline);
+    auto baseline {Is_SameBox(6)};*/
+
+    /*int m{6};
+     auto it = std::find_if(boxes.begin(),boxes.end(),[m](Box box){
         std::cout<<"Hello"<<std::endl;
         return box.GetId() == m;
     });*/
 
-    SplitLine();
-    it->listBox();
+    it->listBox(); // equal (*it).listBox();
 
-    Box box9(*it);
-    box9.listBox();
+    // now, Test another function in IsSameBox
+    SharedBox pbox1 {new Box(1,2,3,4)};
+    SharedBox pbox2 {new Box(2,3,4,5)};
+    std::vector<SharedBox> pSharedboxes;
+    pSharedboxes.push_back(pbox1);
+    pSharedboxes.push_back(pbox2);
+   auto itbox = std::find_if(pSharedboxes.begin(),pSharedboxes.end(),Is_SameBox(5));
+    (*itbox)->listBox(); // itbox is something like a pointer to a pointer
+
+    // test the original pointer func
+    std::vector<Box*> pbox;
+    auto pbox4 {new Box(5,6,7,8)};
+    auto pbox5 {new Box(6,7,8,9)};
+    pbox.push_back(pbox4);
+    pbox.push_back(pbox5);
+    pbox.push_back(pbox1.get());
+    auto itoriginal = std::find_if(pbox.begin(),pbox.end(),Is_SameBox(4));
+    (* itoriginal)->listBox();
+
+
+
+
+
+
 
 }

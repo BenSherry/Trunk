@@ -11,14 +11,12 @@ class Box
 public:
     Box()= default;
     explicit Box(double lv,double hv,double wv,int id = 0):length_{lv},height_{hv},width_{wv},id_{id}{
-        std::cout<<"From construct"<<std::endl;
     }
     virtual double volume () const
     {
         return length_*height_*width_;
     }
     explicit Box(Box  const &box):length_{box.length_},width_{box.width_},height_{box.height_},id_{box.id_}{
-        std::cout<<"From copy"<<std::endl;
     }
     virtual void listBox() const
     {
@@ -77,7 +75,6 @@ private:
 };
 inline bool operator<(double value, const Box& aBox)
 {
-    std::cout<<"from 2 binary function"<<std::endl;
     return value < aBox.GetSurface();
 }
 inline bool operator<(const Box& aBox,double value)
@@ -108,6 +105,10 @@ public:
     bool operator()(Box *box)
     {
         return box->GetId() == id_;
+    }
+    bool operator()(std::shared_ptr<Box> pbox)
+    {
+        return pbox->GetId()==id_;
     }
 };
 #endif //TRUNK_BOX_H
