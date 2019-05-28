@@ -1,15 +1,15 @@
 #include <iostream>
 #include <memory>
 #include"TrunkLoad.h"
-#include"Ins_Array.h"
 #include"Carton.h"
 #include<algorithm>
+#include"Array.h"
 void  TestClassPackage();
 void TestClassBox();
 void TestTrunkv1();
 void TestTrunkv2();
 void TestClassBox2();
-void TestInsv1();
+void TestArray1();
 void TestCarton();
 void Testpolymorphism();
 void UseSmartptr();
@@ -25,6 +25,7 @@ void TestAsFun();
 int main() {
     //Testpolymorphism();
     TestAsFun();
+    TestArray1();
    // UseSmartptr();
     return 0;
 }
@@ -96,12 +97,6 @@ void TestClassBox2()
    std::cout << res<<std::endl;
    res = *pbox2<36;
    std::cout<<"show box"<<*pbox1<<std::endl;
-}
-void TestInsv1()
-{
-    Array array{2};
-    Box box1{1,2,3};
-    Box box2{2,3,4};
 }
 void TestCarton()
 {
@@ -194,11 +189,9 @@ void TestAsFun()
     pbox.push_back(pbox1.get());
     auto itoriginal = std::find_if(pbox.begin(),pbox.end(),Is_SameBox(4));
     (* itoriginal)->listBox();
-
-
-
-
-
-
-
+}
+void TestArray1()
+{
+    Array<double> arr_d{10};
+    arr_d[2] = 13 ;
 }
