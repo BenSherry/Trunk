@@ -83,6 +83,7 @@ public:
         phead_ = pcurr_ = ptail_ = nullptr;
         for(Package *package{src.phead_};package;package = package->GetNext())
             addbox(package->GetCurrentBox());
+        return *this;
     }
 
 };

@@ -4,6 +4,7 @@
 #include"Carton.h"
 #include<algorithm>
 #include"Array.h"
+#include<map>
 void  TestClassPackage();
 void TestClassBox();
 void TestTrunkv1();
@@ -13,6 +14,7 @@ void TestArray1();
 void TestCarton();
 void Testpolymorphism();
 void UseSmartptr();
+void pArray();
 void SplitLine()
 {
     std::cout<<"-------------------------"<<std::endl;
@@ -24,9 +26,10 @@ void ReferenceWay(Box &box)
 void TestAsFun();
 int main() {
     //Testpolymorphism();
-    TestAsFun();
-    TestArray1();
-   // UseSmartptr();
+    //TestAsFun();
+    //TestArray1();
+    UseSmartptr();
+   pArray();
     return 0;
 }
 void TestClassBox()
@@ -136,8 +139,18 @@ void UseSmartptr()
     std::vector<std::unique_ptr<Box>> pboxes;
     Carton carton1{1,2,3,"Golden"};
     Box box1{3,2,3};
+    std::map<int, std::unique_ptr<Box>> box_map;
+    box_map[6] = std::make_unique<Carton>(carton1);
+    box_map[7] = std::make_unique<Box>(box1);
+
     pboxes.push_back(std::make_unique<Carton>(carton1));
     pboxes.push_back(std::make_unique<Box>(box1));
+
+    for (const auto&[id,p_map]:box_map)
+    {
+        std::cout<< id <<" ";
+        p_map->ShowVolume();
+    }
     for(auto &p:pboxes)
     {
         p->listBox();
@@ -192,6 +205,18 @@ void TestAsFun()
 }
 void TestArray1()
 {
-    Array<double> arr_d{10};
-    arr_d[2] = 13 ;
+    Array<double> arr_d{2}, arr_d2{1};
+    arr_d[0] = 1 ;
+    arr_d[1] = 2;
+    arr_d[0] = 6;
+    arr_d.swap(arr_d2);
+    std::cout<< "size:"<<arr_d.getsize()<<std::endl;
+    arr_d.show_data();
+}
+void pArray()
+{
+    int * num1 = new int[5];
+    num1[0]=1;
+    num1[2] =2;
+    std::cout<<num1[2]<<std::endl;
 }

@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include<algorithm>
 template<typename T>
 class Array
 {
@@ -20,6 +21,8 @@ public:
     size_t getsize(){return size_;}
     const T& operator[](size_t index) const;
     T& operator[](size_t index);
+    void swap(Array &other) noexcept ;
+    void show_data();
 };
 
 template<typename T>
@@ -45,11 +48,22 @@ const T& Array<T>::operator[](size_t index) const
         throw std::out_of_range {"Index too large: " + std::to_string(index)};
     return elements_[index];
 }
-template< typename T>
+template<typename T>
 T& Array<T>::operator[](size_t index)
 {
     std::cout<< typeid(*this).name()<<std::endl;
     //  return const_cast<T&>(std::as_const(*this)[index]);
     return const_cast<T&>(static_cast<const Array<T>&>(*this)[index]);
+}
+
+template<typename T>
+void Array<T>::swap(Array &other) noexcept
+{
+    std::swap(size_,other.size_);
+    std::swap(elements_,other.elements_);
+}
+template<typename T>
+void Array<T>::show_data() {
+
 }
 #endif //TRUNK_ARRAY_H

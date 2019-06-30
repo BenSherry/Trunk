@@ -88,10 +88,7 @@ std::ostream &operator <<(std::ostream & stream,const Box &box)
            << std::setw(2) << box.width_<< ')';
     return stream;
 }
-std::istream &operator >>(std::istream & stream, Box &box)
-{
-    
-}
+
 struct Is_SameBox
 {
 private:
