@@ -52,8 +52,7 @@ template<typename T>
 T& Array<T>::operator[](size_t index)
 {
     std::cout<< typeid(*this).name()<<std::endl;
-    //  return const_cast<T&>(std::as_const(*this)[index]);
-    return const_cast<T&>(static_cast<const Array<T>&>(*this)[index]);
+    return const_cast<T&>(std::as_const(*this)[index]);
 }
 
 template<typename T>

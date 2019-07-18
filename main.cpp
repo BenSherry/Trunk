@@ -5,7 +5,9 @@
 #include<algorithm>
 #include"Array.h"
 #include<map>
-void  TestClassPackage();
+#include"Helper.hpp"
+#include<execution>
+void TestClassPackage();
 void TestClassBox();
 void TestTrunkv1();
 void TestTrunkv2();
@@ -15,6 +17,7 @@ void TestCarton();
 void Testpolymorphism();
 void UseSmartptr();
 void pArray();
+void TestShowAllData();
 void SplitLine()
 {
     std::cout<<"-------------------------"<<std::endl;
@@ -23,13 +26,28 @@ void ReferenceWay(Box &box)
 {
     box.ShowVolume();
 }
-void TestAsFun();
+void TestFunctor();
+void TestOdd()
+{
+    std::vector<int> numbers{1,2,3,4,5,6,7,8,9,10};
+    std::vector<int> odd_numbers(numbers.size());
+    // cpoy_if return the one past the last element copied. 
+    auto end_odd_numbers = std::copy_if(std::execution::par, begin(numbers), end(numbers), begin(odd_numbers),[](int n) { return n % 2 == 1; });
+    showData<std::vector<int>, int>(odd_numbers); // 1 3 5 7 9 0 0 0 0 0
+    std::cout<<" end_odd_numbers:"<<*end_odd_numbers<<std::endl; // 0
+    odd_numbers.erase(end_odd_numbers, end(odd_numbers));
+    showData<std::vector<int>, int>(odd_numbers);
+
+    // another way
+    std::vector<int> odd_numbers_ex;
+    std::copy_if(std::execution::par, begin(numbers), end(numbers), std::back_inserter(odd_numbers_ex), [](int n) {return n %2 == 1;});
+    showData<std::vector<int>, int>(odd_numbers_ex);
+
+
+
+}
 int main() {
-    //Testpolymorphism();
-    //TestAsFun();
-    //TestArray1();
-    UseSmartptr();
-   pArray();
+    TestOdd();
     return 0;
 }
 void TestClassBox()
@@ -164,7 +182,7 @@ void UseSmartptr()
 // 4.析构函数和构造函数里调用的虚函数只会调用析构函数或者构造函数所在类的那个虚函数(不会发生多态).
 }
 
-void TestAsFun()
+void TestFunctor()
 {
     std::vector<Box> boxes;
     boxes.push_back(Box(1,2,3,4)); // 直接push_back一个object会调用拷贝构造函数
@@ -187,11 +205,25 @@ void TestAsFun()
     // now, Test another function in IsSameBox
     SharedBox pbox1 {new Box(1,2,3,4)};
     SharedBox pbox2 {new Box(2,3,4,5)};
+    SharedBox pbox3 {new Box(3,4,5,6)};
+    SharedBox pbox99 {new Box(4,5,6,7)};
     std::vector<SharedBox> pSharedboxes;
     pSharedboxes.push_back(pbox1);
     pSharedboxes.push_back(pbox2);
+    pSharedboxes.push_back(pbox3);
+    pSharedboxes.push_back(pbox99);
    auto itbox = std::find_if(pSharedboxes.begin(),pSharedboxes.end(),Is_SameBox(5));
     (*itbox)->listBox(); // itbox is something like a pointer to a pointer
+
+    // if not find ,return the end of of the range, that's mean not always be pSharedboxes.end() example
+     auto can_find = std::find_if(pSharedboxes.begin(),pSharedboxes.begin()+1,Is_SameBox(99));
+     std::cout<< "no this box:";
+     (*can_find)->listBox(); // box 2,3 4
+     /* 
+     in set or map, use find instead of std::find
+     in general, whenever a container offers member functions that are functionally equivalent to an algorithm,
+     you should always use the former
+     */
 
     // test the original pointer func
     std::vector<Box*> pbox;
@@ -200,7 +232,7 @@ void TestAsFun()
     pbox.push_back(pbox4);
     pbox.push_back(pbox5);
     pbox.push_back(pbox1.get());
-    auto itoriginal = std::find_if(pbox.begin(),pbox.end(),Is_SameBox(4));
+    auto itoriginal = std::find_if(std::execution::par, pbox.begin(), pbox.end(), Is_SameBox(4));
     (* itoriginal)->listBox();
 }
 void TestArray1()
@@ -216,7 +248,21 @@ void TestArray1()
 void pArray()
 {
     int * num1 = new int[5];
-    num1[0]=1;
-    num1[2] =2;
+    num1[0] = 1;
+    num1[2] = 2;
     std::cout<<num1[2]<<std::endl;
+}
+
+void TestShowAllData()
+{
+    std::vector<Box> boxes;
+    boxes.push_back(Box(1,2,3,4)); // 直接push_back一个object会调用拷贝构造函数
+    boxes.push_back(Box(2,3,4,5));
+    boxes.push_back(Box(3,4,5,6));
+    showData<std::vector<Box>, Box>(boxes);
+    auto [minbox, maxbox] = std::minmax_element(boxes.begin(), boxes.end(),[](Box &x, Box &y){return x<y;});
+    //auto maxbox = std::max_element(boxes.begin(), boxes.end(),[](Box &x, Box &y){return x<y;});
+    std::cout<<"min:"<< *minbox<<std::endl;
+    std::cout<<"max:"<< *maxbox<<std::endl;
+    //std::for_each(boxes.begin(),boxes.end(),[](Box &box){std::cout<<box<<" ";});
 }
