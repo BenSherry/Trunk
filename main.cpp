@@ -273,8 +273,23 @@ void PrintAdd(int m1, int m2)
 {
     std::cout<<"m1 and m2 is :"<< m1 + m2 << std::endl;
 }
+struct AddNum
+{
+    void operator()(int num)
+    {
+        std::cout << num +1 << std::endl;
+    }
+};
 void TestBaseBind()
 {
     std::vector<int> nums {9,8,7,6,5};
+     // std::bind way
     std::for_each(nums.begin(), nums.end(), std::bind(PrintAdd, std::placeholders::_1, 10));
+
+     // lambda way
+    std::for_each(nums.begin(), nums.end(), [](int elementary){std::cout<<elementary<<std::endl;});
+
+    // functor way
+    std::for_each(nums.begin(), nums.end(), AddNum());
+
 }
