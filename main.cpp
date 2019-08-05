@@ -6,7 +6,7 @@
 #include"Array.h"
 #include<map>
 #include"Helper.hpp"
-#include<execution>
+#include <functional>
 void TestClassPackage();
 void TestClassBox();
 void TestTrunkv1();
@@ -18,6 +18,7 @@ void Testpolymorphism();
 void UseSmartptr();
 void pArray();
 void TestShowAllData();
+void TestBaseBind();
 void SplitLine()
 {
     std::cout<<"-------------------------"<<std::endl;
@@ -32,7 +33,7 @@ void TestOdd()
     std::vector<int> numbers{1,2,3,4,5,6,7,8,9,10};
     std::vector<int> odd_numbers(numbers.size());
     // cpoy_if return the one past the last element copied. 
-    auto end_odd_numbers = std::copy_if(std::execution::par, begin(numbers), end(numbers), begin(odd_numbers),[](int n) { return n % 2 == 1; });
+    auto end_odd_numbers = std::copy_if(begin(numbers), end(numbers), begin(odd_numbers),[](int n) { return n % 2 == 1; });
     showData<std::vector<int>, int>(odd_numbers); // 1 3 5 7 9 0 0 0 0 0
     std::cout<<" end_odd_numbers:"<<*end_odd_numbers<<std::endl; // 0
     odd_numbers.erase(end_odd_numbers, end(odd_numbers));
@@ -40,14 +41,15 @@ void TestOdd()
 
     // another way
     std::vector<int> odd_numbers_ex;
-    std::copy_if(std::execution::par, begin(numbers), end(numbers), std::back_inserter(odd_numbers_ex), [](int n) {return n %2 == 1;});
+    std::copy_if(begin(numbers), end(numbers), std::back_inserter(odd_numbers_ex), [](int n) {return n %2 == 1;});
     showData<std::vector<int>, int>(odd_numbers_ex);
 
 
 
 }
 int main() {
-    TestOdd();
+   //  TestOdd();
+    TestBaseBind();
     return 0;
 }
 void TestClassBox()
@@ -232,7 +234,7 @@ void TestFunctor()
     pbox.push_back(pbox4);
     pbox.push_back(pbox5);
     pbox.push_back(pbox1.get());
-    auto itoriginal = std::find_if(std::execution::par, pbox.begin(), pbox.end(), Is_SameBox(4));
+    auto itoriginal = std::find_if(pbox.begin(), pbox.end(), Is_SameBox(4));
     (* itoriginal)->listBox();
 }
 void TestArray1()
@@ -265,4 +267,14 @@ void TestShowAllData()
     std::cout<<"min:"<< *minbox<<std::endl;
     std::cout<<"max:"<< *maxbox<<std::endl;
     //std::for_each(boxes.begin(),boxes.end(),[](Box &box){std::cout<<box<<" ";});
+}
+
+void PrintAdd(int m1, int m2)
+{
+    std::cout<<"m1 and m2 is :"<< m1 + m2 << std::endl;
+}
+void TestBaseBind()
+{
+    std::vector<int> nums {9,8,7,6,5};
+    std::for_each(nums.begin(), nums.end(), std::bind(PrintAdd, std::placeholders::_1, 10));
 }
