@@ -14,14 +14,14 @@ private:
     Package *pcurr_{nullptr};
     Package *ptail_{nullptr};
 public:
-    TrunkLoad()=default;
-    TrunkLoad( SharedBox box)
+    TrunkLoad() = default;
+    TrunkLoad(SharedBox box)
     {
-        phead_=ptail_= new Package{box};
+        phead_= ptail_= new Package{box};
     }
     TrunkLoad(const std::vector<SharedBox>& Boxes)
     {
-        for(const auto & Box:Boxes)
+        for(const auto &Box:Boxes)
         {
             addbox(Box);
         }
@@ -32,7 +32,7 @@ public:
         if(ptail_)
             ptail_->SetNext(package);
         else
-            phead_=package;
+            phead_= package;
         ptail_= package;
     }
     void ShowAllBox()
@@ -44,9 +44,9 @@ public:
             pCurr = pCurr->GetNext();
         }
     }
-    TrunkLoad(const TrunkLoad & src)
+    TrunkLoad(const TrunkLoad& src)
     {
-        for(Package *package{src.phead_};package;package = package->GetNext())
+        for(Package *package{src.phead_}; package; package = package->GetNext())
             addbox(package->GetCurrentBox());
     }
    bool RemoveBox(SharedBox box2Remove)

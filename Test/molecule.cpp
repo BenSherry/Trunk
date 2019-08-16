@@ -65,6 +65,26 @@ void Polymorphism()
 // 4.析构函数和构造函数里调用的虚函数只会调用析构函数或者构造函数所在类的那个虚函数(不会发生多态).
 }
 
+void PolymorphismPandR()
+{
+    Carton carton1{1, 2, 3, "Golden"};
+    Box box{1, 2, 3};
+    Box *pbox{&box};
+    pbox->ShowVolume();
+
+    pbox = &carton1;
+    pbox->ShowVolume();
+    SplitLine();
+    PolymorphismR(box);
+    PolymorphismR(carton1);
+}
+
+void PolymorphismR(Box &box)
+{
+    // TO DO, pass vector that store Box&
+    box.ShowVolume();
+}
+
 void FindBox()
 {
     std::vector<Box> boxes;
@@ -111,13 +131,67 @@ void FindBox()
 
     // test the original pointer func
     std::vector<Box*> pbox;
-    auto pbox4 {new Box(5,6,7,8)};
-    auto pbox5 {new Box(6,7,8,9)};
+    auto pbox4 {new Box(5, 6, 7, 8)};
+    auto pbox5 {new Box(6, 7, 8, 9)};
     pbox.push_back(pbox4);
     pbox.push_back(pbox5);
     pbox.push_back(pbox1.get());
     auto itoriginal = std::find_if(pbox.begin(), pbox.end(), Is_SameBox(4));
     (* itoriginal)->listBox();
+}
+
+void OperBoxinPack()
+{
+    SharedBox pbox1 {new Box(1, 1, 1)};
+    SharedBox pbox2 {new Box(2, 2, 2)};
+    SharedBox pbox3 {new Box(3, 3, 3)};
+    Package *phead = new Package{pbox1};
+    Package *pPackage2 = new Package{pbox2};
+    phead->SetNext(pPackage2);
+    Package *pPackage3 = new Package{pbox3};
+    pPackage2->SetNext(pPackage3);
+    phead->ListPackage();
+    phead->GetNext()->ListPackage();
+    phead->GetCurrentBox()->listBox();
+}
+
+void TrunkLoadAdd()
+{
+    SharedBox pbox1 {new Box(1, 1, 1)};
+    SharedBox pbox2 {new Box(2, 2, 2)};
+    SharedBox pbox3 {new Box(3, 3, 3)};
+    SharedBox pbox0 {new Box(4, 4, 4)};
+    TrunkLoad trunkload{pbox0};
+    trunkload.addbox(pbox1);
+    trunkload.addbox(pbox2);
+    trunkload.addbox(pbox3);
+    trunkload.ShowAllBox();
+}
+
+void TrunkLoadAddAndRemove()
+{
+    SharedBox pbox1 {new Box(1, 1, 1)};
+    SharedBox pbox2 {new Box(2, 2, 2)};
+    SharedBox pbox3 {new Box(3, 3, 3)};
+    SharedBox pbox0 {new Box(4, 4, 4)};
+    std::vector<SharedBox> vecBox;
+    vecBox.push_back(pbox0);
+    vecBox.push_back(pbox1);
+    vecBox.push_back(pbox2);
+    vecBox.push_back(pbox3);
+    TrunkLoad load{vecBox};
+    TrunkLoad load2{load};
+    load2.ShowAllBox();
+    SharedBox pbox5 {new Box(4, 2, 4)};
+    std::cout << "delete:"<< load.RemoveBox(pbox5)<< std::endl;
+    load.ShowAllBox();
+    SharedBox pbox6 {new Box(6, 6, 6)};
+    TrunkLoad load3{pbox6};
+    SplitLine();
+    load3.ShowAllBox();
+    load3 = load;
+    SplitLine();
+    load3.ShowAllBox();
 }
 
 } // namespace box

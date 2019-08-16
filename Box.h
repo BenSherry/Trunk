@@ -71,7 +71,7 @@ public:
      // define it out of class, there is a compile error like this:
      // multiple definition of `operator<<(std::ostream&, Box const&)'; CMakeFiles/Trunk.dir/main.cpp.o:main.cpp:(.text+0x0): first defined here
 
-    friend std::ostream &operator <<(std::ostream & stream,const Box &box)
+    friend std::ostream &operator << (std::ostream & stream,const Box &box)
     {
         stream << "Box(" << std::setw(2) << box.length_ << ','
            << std::setw(2) << box.height_ << ','
@@ -100,9 +100,9 @@ private:
     int id_;
 public:
     Is_SameBox(int id):id_{id}{}
-    bool operator()(Box & box)
+    bool operator()(Box& box)
     {
-        return box.GetId()==id_;
+        return box.GetId() == id_;
     }
     bool operator()(Box *box)
     {
@@ -110,6 +110,6 @@ public:
     }
     bool operator()(std::shared_ptr<Box> pbox)
     {
-        return pbox->GetId()==id_;
+        return pbox->GetId() == id_;
     }
 };

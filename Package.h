@@ -1,9 +1,5 @@
-//
-// Created by SHERRY on 2019/4/7.
-//
+#pragma once
 
-#ifndef TRUNK_PACKAGE_H
-#define TRUNK_PACKAGE_H
 #include"Box.h"
 using SharedBox = std::shared_ptr<Box>;
 class Package
@@ -32,9 +28,8 @@ public:
     }
     void ListPackage()
     {
+        // TO DO This function should list all packahe later
         pBox_->listBox();
     }
 
 };
-
-#endif //TRUNK_PACKAGE_H

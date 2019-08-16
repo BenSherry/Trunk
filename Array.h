@@ -29,7 +29,7 @@ template<typename T>
 Array<T>::Array(size_t size):size_ {size},elements_{new T[size]}{}
 
 template<typename T>
-Array<T>::Array(const Array & array):Array{array.size_}
+Array<T>::Array(const Array& array):Array{array.size_}
 {
     for(size_t i{};i<size_;i++)
     {
@@ -56,7 +56,7 @@ T& Array<T>::operator[](size_t index)
 }
 
 template<typename T>
-void Array<T>::swap(Array &other) noexcept
+void Array<T>::swap(Array& other) noexcept
 {
     std::swap(size_,other.size_);
     std::swap(elements_,other.elements_);
