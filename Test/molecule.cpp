@@ -65,5 +65,60 @@ void Polymorphism()
 // 4.析构函数和构造函数里调用的虚函数只会调用析构函数或者构造函数所在类的那个虚函数(不会发生多态).
 }
 
+void FindBox()
+{
+    std::vector<Box> boxes;
+    boxes.push_back(Box(1, 2, 3, 4)); // 直接push_back一个object会调用拷贝构造函数
+    boxes.push_back(Box(2, 3, 4, 5));
+    boxes.push_back(Box(3, 4, 5, 6));
+
+    auto it = std::find_if(boxes.begin(),boxes.end(),Is_SameBox(6));
+
+    /*auto baseline {Is_SameBox(6)};
+    auto it = std::find_if(boxes.begin(),boxes.end(),baseline);
+    auto baseline {Is_SameBox(6)};*/
+
+    /*int m{6};
+     auto it = std::find_if(boxes.begin(),boxes.end(),[m](Box box){
+        std::cout<<"Hello"<<std::endl;
+        return box.GetId() == m;
+    });*/
+
+    it->listBox(); // equal (*it).listBox();
+
+    // now, Test another function in IsSameBox
+    SharedBox pbox1 {new Box(1, 2, 3, 4)};
+    SharedBox pbox2 {new Box(2, 3, 4, 5)};
+    SharedBox pbox3 {new Box(3, 4, 5, 6)};
+    SharedBox pbox99 {new Box(4, 5, 6, 7)};
+    std::vector<SharedBox> pSharedboxes;
+    pSharedboxes.push_back(pbox1);
+    pSharedboxes.push_back(pbox2);
+    pSharedboxes.push_back(pbox3);
+    pSharedboxes.push_back(pbox99);
+    auto itbox = std::find_if(pSharedboxes.begin(),pSharedboxes.end(),Is_SameBox(5));
+    (*itbox)->listBox(); // itbox is something like a pointer to a pointer
+
+    // if not find ,return the end of of the range, that's mean not always be pSharedboxes.end() example
+    auto can_find = std::find_if(pSharedboxes.begin(),pSharedboxes.begin()+1,Is_SameBox(99));
+    std::cout<< "no this box:";
+    (*can_find)->listBox(); // box 2,3 4
+    /* 
+    in set or map, use find instead of std::find
+    in general, whenever a container offers member functions that are functionally equivalent to an algorithm,
+    you should always use the former
+    */
+
+    // test the original pointer func
+    std::vector<Box*> pbox;
+    auto pbox4 {new Box(5,6,7,8)};
+    auto pbox5 {new Box(6,7,8,9)};
+    pbox.push_back(pbox4);
+    pbox.push_back(pbox5);
+    pbox.push_back(pbox1.get());
+    auto itoriginal = std::find_if(pbox.begin(), pbox.end(), Is_SameBox(4));
+    (* itoriginal)->listBox();
+}
+
 } // namespace box
 } // namespace test
