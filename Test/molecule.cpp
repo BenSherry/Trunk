@@ -4,6 +4,11 @@
 #include"../Helper.hpp"
 #include"atom.hpp"
 
+namespace test
+{
+namespace box
+{
+
 void ListAllBox()
 {
     std::vector<Box> boxes;
@@ -59,3 +64,6 @@ void Polymorphism()
 // 3.注意vector 使用make_unique 使用了不同的模板类型
 // 4.析构函数和构造函数里调用的虚函数只会调用析构函数或者构造函数所在类的那个虚函数(不会发生多态).
 }
+
+} // namespace box
+} // namespace test

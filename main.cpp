@@ -7,6 +7,6 @@ int main()
 {
     Bind_Lambda_and_Functor();
     use_atom();
-    ListAllBox();
+    test::box::ListAllBox();
     return 0;
 }
