@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
-#include<algorithm>
+#include <algorithm>
 template<typename T>
 class Array
 {

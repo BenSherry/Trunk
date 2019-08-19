@@ -7,6 +7,6 @@ add_definitions(-std=c++17)
 
 add_subdirectory(Test)
 
-add_executable(Trunk main.cpp TrunkLoad.h   Box.h Package.h)
+add_executable(Trunk main.cpp)
 
 target_link_libraries(Trunk HelperFunction)

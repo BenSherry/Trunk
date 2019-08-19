@@ -1,10 +1,12 @@
-#include <functional>
+#include<functional>
 #include<vector>
 #include<iostream>
 #include<algorithm>
+#include<map>
 
 #include"atom.hpp"
 #include"../Helper.hpp"
+#include"../Array.h"
 
 void use_atom()
 {

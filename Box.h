@@ -2,21 +2,24 @@
 // Created by SHERRY on 2019/4/7.
 //
 
-#ifndef TRUNK_BOX_H
-#define TRUNK_BOX_H
+#pragma once
+
 #include<iostream>
 #include<iomanip>
+#include<memory>
 class Box
 {
 public:
     Box()= default;
-    explicit Box(double lv,double hv,double wv,int id = 0):length_{lv},height_{hv},width_{wv},id_{id}{
+    explicit Box(double lv,double hv,double wv,int id = 0):
+            length_{lv},height_{hv},width_{wv},id_{id}{
     }
     virtual double volume () const
     {
         return length_*height_*width_;
     }
-    explicit Box(Box  const &box):length_{box.length_},width_{box.width_},height_{box.height_},id_{box.id_}{
+    explicit Box(Box  const &box):
+            length_{box.length_},width_{box.width_},height_{box.height_},id_{box.id_}{
     }
     virtual void listBox() const
     {
@@ -64,8 +67,17 @@ public:
     {
         return id_;
     }
-    friend std::ostream &operator <<(std::ostream & stream,const Box &box);
-    friend std::istream &operator >>(std::istream & stream, Box &box);
+     // An interesting thing, in this project, if declare friend function here and 
+     // define it out of class, there is a compile error like this:
+     // multiple definition of `operator<<(std::ostream&, Box const&)'; CMakeFiles/Trunk.dir/main.cpp.o:main.cpp:(.text+0x0): first defined here
+
+    friend std::ostream &operator <<(std::ostream & stream,const Box &box)
+    {
+        stream << "Box(" << std::setw(2) << box.length_ << ','
+           << std::setw(2) << box.height_ << ','
+           << std::setw(2) << box.width_<< ')';
+        return stream;
+    }
     virtual ~Box() = default;
 private:
     double length_{1};
@@ -80,13 +92,6 @@ inline bool operator<(double value, const Box& aBox)
 inline bool operator<(const Box& aBox,double value)
 {
     return aBox.GetSurface()<value;
-}
-std::ostream &operator <<(std::ostream & stream,const Box &box)
-{
-    stream << "Box(" << std::setw(2) << box.length_ << ','
-           << std::setw(2) << box.height_ << ','
-           << std::setw(2) << box.width_<< ')';
-    return stream;
 }
 
 struct Is_SameBox
@@ -108,4 +113,3 @@ public:
         return pbox->GetId()==id_;
     }
 };
-#endif //TRUNK_BOX_H
