@@ -9,5 +9,6 @@ int main()
     use_atom();
     test::box::ListAllBox();
     test::box::OperBoxinPack();
+    test::box::BindaBox();
     return 0;
 }

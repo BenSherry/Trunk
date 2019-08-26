@@ -1,4 +1,5 @@
 #include<map>
+#include<functional>
 
 #include"molecule.hpp"
 #include"../Helper.hpp"
@@ -192,6 +193,15 @@ void TrunkLoadAddAndRemove()
     load3 = load;
     SplitLine();
     load3.ShowAllBox();
+}
+
+void BindaBox()
+{
+    Box box{1, 2 ,3, 4}, another{2, 3 ,4, 6};
+    auto bindadd = std::bind(&Box::add, &box, 6, std::placeholders::_1);
+    std::cout<<"after bind:"<<bindadd(9)<<std::endl;
+    auto bindoperator = std::bind(&Box::operator<, &box, another);
+    std::cout<<bindoperator()<<std::endl;
 }
 
 } // namespace box

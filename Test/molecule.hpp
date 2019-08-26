@@ -20,6 +20,7 @@ void FindBox();
 void OperBoxinPack();
 void TrunkLoadAdd();
 void TrunkLoadAddAndRemove();
+void BindaBox();
 
 } // namespace box
 } // namespace test
