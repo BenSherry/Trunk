@@ -9,23 +9,29 @@ private:
     SharedBox pBox_;
 public:
     Package(SharedBox pbox):pBox_{pbox},pnext_{nullptr}{}
+
     Package()= default;
+
     void SetNext(Package *package)
     {
         pnext_=package;
     }
+
     Package * GetNext()
     {
         return pnext_;
     }
+
     SharedBox GetCurrentBox()
     {
         return pBox_;
     }
+
     ~Package()
     {
         delete pnext_;
     }
+    
     void ListPackage()
     {
         // TO DO This function should list all packahe later
