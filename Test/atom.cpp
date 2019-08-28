@@ -59,3 +59,8 @@ void SplitLine()
 {
     std::cout<<"-------------------------"<<std::endl;
 }
+
+void LetTransform()
+{
+    SManagerConfiguration manager{"Alex"};
+}
