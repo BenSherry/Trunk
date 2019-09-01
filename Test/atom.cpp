@@ -67,29 +67,43 @@ struct Salary_transfer
         return 2 * d;
     }
 };
+
+struct Add_Salary
+{
+    int operator()(int in)
+    {
+
+        int out = 3 * in;
+        return out;
+    }
+};
+
 void LetTransform()
 {
     SManagerConfiguration manager{"Alex"};
+    SManagerConfiguration manager_bak{"Sherlock"};
     std::vector<int> salary{2, 4, 6, 9};
 
-    std::vector<int> arr{ 1, 3, 5 };
-    std::vector<int> result;
-    result.resize(3);
-    std::transform(arr.begin(),
-                   arr.end(), 
-                   result.begin(),
-                   [](int d) -> int {return d * 5; }); // for_each
-    std::cout<<"after transform arr{ 1, 3, 5 }\n";
-    showData<std::vector<int>, int>(result);
-
+    //transfer by lambda
     std::transform(salary.begin(),
                    salary.end(),
                    manager.month_salary_.begin(),
                    [](int d){return d;});
     showData<std::vector<int>, int>(manager.month_salary_);
+
+    // transfer by operator
     std::transform(salary.begin(),
                    salary.end(),
                    manager.month_salary_.begin(),
                    Salary_transfer());
     showData<std::vector<int>, int>(manager.month_salary_);
+
+    // transfer by operator, but use reference here,
+    // if you need assign server parameters in a for loop,it is look better than lambda way
+    std::transform(&salary[0],
+                   &salary[4], // not include 2nd parameter,[1st, 2nd)
+                   manager_bak.month_salary_.begin(), // this parameter pass to operator Add salary
+                   Add_Salary());
+
+    showData<std::vector<int>, int>(manager_bak.month_salary_);
 }
