@@ -10,5 +10,6 @@ int main()
     test::box::ListAllBox();
     test::box::OperBoxinPack();
     test::box::BindaBox();
+    LetTransform();
     return 0;
 }

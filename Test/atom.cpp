@@ -60,7 +60,36 @@ void SplitLine()
     std::cout<<"-------------------------"<<std::endl;
 }
 
+struct Salary_transfer
+{
+    int operator()(int d)
+    {
+        return 2 * d;
+    }
+};
 void LetTransform()
 {
     SManagerConfiguration manager{"Alex"};
+    std::vector<int> salary{2, 4, 6, 9};
+
+    std::vector<int> arr{ 1, 3, 5 };
+    std::vector<int> result;
+    result.resize(3);
+    std::transform(arr.begin(),
+                   arr.end(), 
+                   result.begin(),
+                   [](int d) -> int {return d * 5; }); // for_each
+    std::cout<<"after transform arr{ 1, 3, 5 }\n";
+    showData<std::vector<int>, int>(result);
+
+    std::transform(salary.begin(),
+                   salary.end(),
+                   manager.month_salary_.begin(),
+                   [](int d){return d;});
+    showData<std::vector<int>, int>(manager.month_salary_);
+    std::transform(salary.begin(),
+                   salary.end(),
+                   manager.month_salary_.begin(),
+                   Salary_transfer());
+    showData<std::vector<int>, int>(manager.month_salary_);
 }
