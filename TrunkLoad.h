@@ -13,8 +13,9 @@ private:
     Package *phead_{nullptr};
     Package *pcurr_{nullptr};
     Package *ptail_{nullptr};
+    int numOfBox_;
 public:
-    TrunkLoad() = default;
+    TrunkLoad():numOfBox_(0){};
 
     TrunkLoad(SharedBox box)
     {
@@ -37,6 +38,7 @@ public:
         else
             phead_= package;
         ptail_= package;
+        numOfBox_++;
     }
 
     void ShowAllBox()
@@ -74,6 +76,7 @@ public:
                 }
                 pCurr->SetNext(nullptr);
                 delete pCurr;
+                numOfBox_--;
                 return true;
             }
             else
@@ -91,6 +94,11 @@ public:
         for(Package *package{src.phead_};package;package = package->GetNext())
             addbox(package->GetCurrentBox());
         return *this;
+    }
+
+    int getBoxNum() const
+    {
+        return numOfBox_;
     }
 
 };
