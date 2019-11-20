@@ -11,6 +11,7 @@
 void use_atom()
 {
     std::cout<<"hello from atom.hpp"<<std::endl;
+    LetTransform();
 }
 
 void PrintAdd(int m1, int m2)
@@ -99,11 +100,20 @@ void LetTransform()
     showData<std::vector<int>, int>(manager.month_salary_);
 
     // transfer by operator, but use reference here,
-    // if you need assign server parameters in a for loop,it is look better than lambda way
+    // if you need assign serval parameters in a for loop,it is look better than lambda way
     std::transform(&salary[0],
                    &salary[4], // not include 2nd parameter,[1st, 2nd)
                    manager_bak.month_salary_.begin(), // this parameter pass to operator Add salary
                    Add_Salary());
 
     showData<std::vector<int>, int>(manager_bak.month_salary_);
+
+    std::vector<int> allSalary(12,6); // That's mean has 12 element and all is 6
+    showData<std::vector<int>, int>(allSalary);
+    std::transform(manager.month_salary_.begin(),
+       manager.month_salary_.end(),
+       manager_bak.month_salary_.begin(),
+       allSalary.begin(),
+       [](int i, int j){ return i+j;});
+    showData<std::vector<int>, int>(allSalary);
 }
