@@ -209,5 +209,11 @@ void BindaBox()
     std::cout<<bindoperator()<<std::endl;
 }
 
+void ShowBoxbyPtr(std::shared_ptr<Box> sharedBox, std::unique_ptr<Box> uniqueBox)
+{
+    sharedBox->listBox();
+    uniqueBox->listBox();
+} 
+
 } // namespace box
 } // namespace test
