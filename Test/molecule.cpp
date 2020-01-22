@@ -226,6 +226,10 @@ void BoxinArray()
     Boxes1 = std::move(Boxes); // move Assign constructer
     Array<Box> Boxes2{Boxes1}; // copy constructer
     Array<Box> Boxes3{std::move(Boxes2)}; // move copy constructer
+    SplitLine();
+    Array<Box>&& Boxes4_Ref{std::move(Boxes3)}; // An Rvalue Reference Is an Lvalue
+    Array<Box> Boxes4{2};
+    Boxes4 = Boxes4_Ref;
 }
 
 } // namespace box
