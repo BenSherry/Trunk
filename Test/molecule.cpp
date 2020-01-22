@@ -31,8 +31,8 @@ void Array_swap()
     arr_d[1] = 2;
     arr_d[0] = 6;
     arr_d.swap(arr_d2);
-    std::cout<< "size:"<<arr_d.getsize()<<std::endl;
-    arr_d.show_data();
+    // std::cout<< "size:"<<arr_d.getsize()<<std::endl;
+    // arr_d.show_data();
 }
 
 void Polymorphism()
@@ -213,7 +213,20 @@ void ShowBoxbyPtr(std::shared_ptr<Box> sharedBox, std::unique_ptr<Box> uniqueBox
 {
     sharedBox->listBox();
     uniqueBox->listBox();
-} 
+}
+
+void BoxinArray()
+{
+    Array<Box> Boxes{2};
+    Box box1{1, 1, 1},box2{2, 2, 2};
+    Boxes[0] = box1;
+    Boxes[1] = box2;
+    Array<Box> Boxes1{2};
+    Boxes1 = Boxes; // Assign constructer
+    Boxes1 = std::move(Boxes); // move Assign constructer
+    Array<Box> Boxes2{Boxes1}; // copy constructer
+    Array<Box> Boxes3{std::move(Boxes2)}; // move copy constructer
+}
 
 } // namespace box
 } // namespace test

@@ -3,7 +3,7 @@
 #include<memory>
 
 #include"../Carton.h"
-#include"../Array.h"
+#include"../Array.hpp"
 #include"../Package.h"
 #include"../TrunkLoad.h"
 
@@ -23,6 +23,7 @@ void TrunkLoadAdd();
 void TrunkLoadAddAndRemove();
 void BindaBox();
 void ShowBoxbyPtr(std::shared_ptr<Box> sharedBox, std::unique_ptr<Box> uniqueBox);
+void BoxinArray();
 
 } // namespace box
 } // namespace test

@@ -19,5 +19,7 @@ int main()
     {
         std::cout << "After removed, uniqueBoxptr is nullprt now\n ";
     }
+
+    test::box::BoxinArray();
     return 0;
 }

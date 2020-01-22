@@ -6,7 +6,7 @@
 
 #include"atom.hpp"
 #include"../Helper.hpp"
-#include"../Array.h"
+#include"../Array.hpp"
 
 void use_atom()
 {
