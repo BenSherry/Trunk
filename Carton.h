@@ -1,9 +1,5 @@
-//
-// Created by SHERRY on 2019/4/20.
-//
+#pragma once
 
-#ifndef TRUNK_CARTON_H
-#define TRUNK_CARTON_H
 #include"Box.h"
 #include<string>
 class Carton:public Box
@@ -52,4 +48,3 @@ public:
     }
 
 };
-#endif //TRUNK_CARTON_H
