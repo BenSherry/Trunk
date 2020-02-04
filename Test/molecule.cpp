@@ -232,5 +232,26 @@ void BoxinArray()
     Boxes4 = Boxes4_Ref;
 }
 
+void LetsCast()
+{
+    /*std::shared_ptr<Carton> cartonPtr = std::make_shared<Carton>(1, 2, 3, "Iron");
+    cartonPtr->listBox();
+    auto boxPtr = std::static_pointer_cast<Box>(cartonPtr);
+    boxPtr->listBox();*/
+    // cartonPtr = std::make_shared<Carton>(1, 2, 3, "Iron");
+    std::cout << "********static_cast begin********\n";
+    auto v = static_cast<std::vector<int>>(10); // a vector with 10 elem(all 0)
+    std::vector<int> v2 = static_cast<std::vector<int>&&>(v);
+    // this equal std::vector<int> v2 = std::move(v). convert lvalue to rvalue ref.
+    std::cout << "after move, v.size() = " << v.size() << '\n';
+    Carton carton{1, 2, 3, "Iron"};
+    carton.listBox(); // Carton::listBox()
+    auto box = static_cast<Box>(carton);
+    box.listBox(); // Box::listBox
+    Box& boxre = carton;
+    boxre.listBox(); // Carton::listBox()
+    std::cout << "********static_cast end********\n";
+}
+
 } // namespace box
 } // namespace test

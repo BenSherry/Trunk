@@ -26,7 +26,7 @@ public:
 
     virtual void listBox() const
     {
-        std::cout<<"Box("<<std::setw(2)<<length_<<','
+        std::cout<<"Box("<<length_<<','
                          <<std::setw(2)<<height_<<','
                          <<std::setw(2)<<width_<<')'<<std::endl;
     }

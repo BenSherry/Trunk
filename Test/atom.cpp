@@ -12,6 +12,7 @@ void use_atom()
 {
     std::cout<<"hello from atom.hpp"<<std::endl;
     LetTransform();
+    std::cout<<"bye from atom.hpp"<<std::endl;
 }
 
 void PrintAdd(int m1, int m2)

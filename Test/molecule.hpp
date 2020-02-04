@@ -24,6 +24,7 @@ void TrunkLoadAddAndRemove();
 void BindaBox();
 void ShowBoxbyPtr(std::shared_ptr<Box> sharedBox, std::unique_ptr<Box> uniqueBox);
 void BoxinArray();
+void LetsCast();
 
 } // namespace box
 } // namespace test

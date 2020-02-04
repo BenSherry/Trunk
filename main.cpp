@@ -21,5 +21,6 @@ int main()
     }
 
     test::box::BoxinArray();
+    test::box::LetsCast();
     return 0;
 }
