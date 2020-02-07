@@ -46,15 +46,15 @@ void Copy_Odd()
     std::vector<int> odd_numbers(numbers.size());
     // cpoy_if return the one past the last element copied. 
     auto end_odd_numbers = std::copy_if(begin(numbers), end(numbers), begin(odd_numbers),[](int n) { return n % 2 == 1; });
-    showData<std::vector<int>, int>(odd_numbers); // 1 3 5 7 9 0 0 0 0 0
+    showData<std::vector<int>>(odd_numbers); // 1 3 5 7 9 0 0 0 0 0
     std::cout<<" end_odd_numbers:"<<*end_odd_numbers<<std::endl; // 0
     odd_numbers.erase(end_odd_numbers, end(odd_numbers));
-    showData<std::vector<int>, int>(odd_numbers);
+    showData<std::vector<int>>(odd_numbers);
 
     // another way
     std::vector<int> odd_numbers_ex;
     std::copy_if(begin(numbers), end(numbers), std::back_inserter(odd_numbers_ex), [](int n) {return n %2 == 1;});
-    showData<std::vector<int>, int>(odd_numbers_ex);
+    showData<std::vector<int>>(odd_numbers_ex);
 }
 
 void SplitLine()
@@ -91,30 +91,30 @@ void LetTransform()
                    salary.end(),
                    manager.month_salary_.begin(),
                    [](int d){return d;});
-    showData<std::vector<int>, int>(manager.month_salary_);
+    showData<std::vector<int>>(manager.month_salary_);
 
     // transfer by operator
     std::transform(salary.begin(),
                    salary.end(),
                    manager.month_salary_.begin(),
                    Salary_transfer());
-    showData<std::vector<int>, int>(manager.month_salary_);
+    showData<std::vector<int>>(manager.month_salary_);
 
     // transfer by operator, but use reference here,
     // if you need assign serval parameters in a for loop,it is look better than lambda way
-    std::transform(&salary[0],
+    /*std::transform(&salary[0],
                    &salary[4], // not include 2nd parameter,[1st, 2nd)
                    manager_bak.month_salary_.begin(), // this parameter pass to operator Add salary
-                   Add_Salary());
+                   Add_Salary());*/
 
-    showData<std::vector<int>, int>(manager_bak.month_salary_);
+    showData<std::vector<int>>(manager_bak.month_salary_);
 
     std::vector<int> allSalary(12,6); // That's mean has 12 element and all is 6
-    showData<std::vector<int>, int>(allSalary);
+    showData<std::vector<int>>(allSalary);
     std::transform(manager.month_salary_.begin(),
        manager.month_salary_.end(),
        manager_bak.month_salary_.begin(),
        allSalary.begin(),
        [](int i, int j){ return i+j;});
-    showData<std::vector<int>, int>(allSalary);
+    showData<std::vector<int>>(allSalary);
 }

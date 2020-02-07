@@ -16,7 +16,7 @@ void ListAllBox()
     boxes.push_back(Box(1, 2, 3, 4)); // 直接push_back一个object会调用拷贝构造函数
     boxes.push_back(Box(2, 3, 4, 5));
     boxes.push_back(Box(3, 4, 5, 6));
-    showData<std::vector<Box>, Box>(boxes);
+    showData<std::vector<Box>>(boxes);
     auto [minbox, maxbox] = std::minmax_element(boxes.begin(), boxes.end(),[](Box &x, Box &y){return x<y;});
     //auto maxbox = std::max_element(boxes.begin(), boxes.end(),[](Box &x, Box &y){return x<y;});
     std::cout<<"min:"<< *minbox<<std::endl;

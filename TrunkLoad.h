@@ -1,11 +1,9 @@
-//
-// Created by SHERRY on 2019/4/7.
-//
+#pragma once
 
-#ifndef TRUNK_TRUNKLOAD_H
-#define TRUNK_TRUNKLOAD_H
-#include"Package.h"
 #include<vector>
+
+#include"Package.h"
+
 
 
 class TrunkLoad {
@@ -102,5 +100,3 @@ public:
     }
 
 };
-
-#endif //TRUNK_TRUNKLOAD_H
