@@ -15,46 +15,15 @@ void showData(T data)
 
 std::string strReplace(std::string sentence,
     std::string src,
-    std::string dst)
-{
-    int pos = 0;
-    while ((pos = sentence.find(src, pos)) != std::string::npos)
-    {
-        sentence.replace(pos, src.length(), dst);
-        pos = pos + dst.length();
-    }
-    return sentence;
-}
+    std::string dst);
 
 void split_byContent(std::string src,
     std::string pattern,
-    std::vector<std::string>& vecctorResult)
-{
-    std::string::size_type lastpos = src.find_first_not_of(pattern, 0);
-    std::string::size_type pos = src.find_first_of(pattern, lastpos);
-    while (std::string::npos != pos || std::string::npos != lastpos)
-    {
-        vecctorResult.push_back(src.substr(lastpos, pos - lastpos));
-        lastpos = src.find_first_not_of(pattern, pos);
-        pos = src.find_first_of(pattern, lastpos);
-    }
-}
+    std::vector<std::string>& vecctorResult);
 
 void split_byLength(const std::string& src,
     int special_length,
-    std::vector<std::string>& vecctorResult)
-{
-    int total_len = src.length();
-    int split_len = total_len / special_length;
-    int remainder = total_len % special_length;
-    if (remainder > 0) {
-        split_len = split_len + 1;
-    }
-
-    for (int i = 0; i < split_len; i++) {
-        vecctorResult.push_back(src.substr(i * special_length, special_length));
-    }
-}
+    std::vector<std::string>& vecctorResult);
 
 namespace TimeHelper
 {
@@ -65,7 +34,8 @@ namespace TimeHelper
             day_{ day },
             month_{ month },
             year_{ year },
-            isLeap_{ isLeapYear() }{};
+            isLeap_{isLeapYear()}{};
+
         Time(const Time& other)
         {
             day_ = other.getDay();
@@ -73,24 +43,30 @@ namespace TimeHelper
             year_ = other.getYear();
             isLeap_ = other.getLeap();
         }
+
         int getDay() const { return day_; };
+
         int getMonth() const { return month_; };
+
         int getYear() const { return year_; };
+
         bool getLeap() const { return isLeap_; }
+
         int operator-(const Time& other)
         {
             return TimeDiffBase() - other.TimeDiffBase();
         }
+    private:
         int TimeDiffBase() const
         {
             /*******************************************************
             make 0001-01-01 as base;
             1.there is 97 leap years and 403 nonleap year in 400 years
             century4Inyear * (97 * 366 + 303 * 365)
-    
+
             2.getYear() % 400 is the rest part.
             in this part,rest/4 - rest/100 is leap years
-    
+
             nocice, after this,we get days about whole year, include
             some uncome days in this year
             ***********************************************************/
@@ -107,10 +83,10 @@ namespace TimeHelper
             }
             int uncomeDay = daysInThisYear - getPastThisYear();
             int day = daysofwholeYears - uncomeDay;
-    
+
             return day;
         }
-    private:
+
         int getPastThisYear() const
         {
             std::array<int, 12> dayMonth{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -127,6 +103,7 @@ namespace TimeHelper
                 0);
             return pastDay + getDay();
         }
+
         bool isLeapYear() const
         {
             if ((year_ % 400 == 0) ||
@@ -144,4 +121,4 @@ namespace TimeHelper
         int year_;
         bool isLeap_;
     };
-}; // namespace TimeHelper
+} // namespace TimeHelper

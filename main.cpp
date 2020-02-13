@@ -2,6 +2,7 @@
 
 #include"Test/atom.hpp"
 #include"Test/molecule.hpp"
+#include"Helper.hpp"
 
 int main()
 {
@@ -22,5 +23,8 @@ int main()
 
     test::box::BoxinArray();
     test::box::LetsCast();
+    TimeHelper::Time time1{ 10, 12, 2020 };
+    TimeHelper::Time time2{ 10, 12, 2021 };
+    std::cout << time1 - time2 << "\n";
     return 0;
 }
