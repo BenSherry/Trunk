@@ -13,8 +13,8 @@ std::string strReplace(std::string sentence,
     return sentence;
 }
 
-void split_byContent(std::string src,
-    std::string pattern,
+void split_byContent(const std::string& src,
+    const std::string& pattern,
     std::vector<std::string>& vecctorResult)
 {
     std::string::size_type lastpos = src.find_first_not_of(pattern, 0);
@@ -28,7 +28,7 @@ void split_byContent(std::string src,
 }
 
 void split_byLength(const std::string& src,
-    int special_length,
+    const int& special_length,
     std::vector<std::string>& vecctorResult)
 {
     int total_len = src.length();

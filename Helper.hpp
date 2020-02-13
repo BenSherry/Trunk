@@ -17,12 +17,12 @@ std::string strReplace(std::string sentence,
     std::string src,
     std::string dst);
 
-void split_byContent(std::string src,
-    std::string pattern,
+void split_byContent(const std::string& src,
+    const std::string& pattern,
     std::vector<std::string>& vecctorResult);
 
 void split_byLength(const std::string& src,
-    int special_length,
+    const int& special_length,
     std::vector<std::string>& vecctorResult);
 
 namespace TimeHelper
