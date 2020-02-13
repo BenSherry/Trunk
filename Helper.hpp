@@ -56,6 +56,14 @@ namespace TimeHelper
         {
             return TimeDiffBase() - other.TimeDiffBase();
         }
+        Time& operator=(const Time& other)
+        {
+            day_ = other.getDay();
+            month_ = other.getMonth();
+            year_ = other.getYear();
+            isLeap_ = other.getLeap();
+            return *this;
+        }
     private:
         int TimeDiffBase() const
         {
