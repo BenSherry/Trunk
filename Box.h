@@ -17,7 +17,7 @@ public:
     }
 
     explicit Box(Box  const &box):
-            length_{box.length_},width_{box.width_},height_{box.height_},id_{box.id_}{
+            length_{box.length_}, height_{box.height_}, width_{box.width_}, id_{box.id_}{
     }
 
     virtual void listBox() const

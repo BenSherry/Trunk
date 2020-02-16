@@ -5,8 +5,9 @@ using SharedBox = std::shared_ptr<Box>;
 class Package
 {
 private:
-    Package *pnext_;
     SharedBox pBox_;
+    Package *pnext_;
+    
 public:
     Package(SharedBox pbox):pBox_{pbox},pnext_{nullptr}{}
 

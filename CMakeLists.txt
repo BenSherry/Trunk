@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_definitions(-std=c++17)
 
+add_definitions(-Wall)
+
 add_subdirectory(Test)
 
 add_executable(Trunk main.cpp)
