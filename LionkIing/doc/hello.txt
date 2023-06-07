@@ -1,0 +1,2 @@
+install it by
+ cmake -DCMAKE_INSTALL_PREFIX=/workspaces ..
